@@ -1,265 +1,1237 @@
-<html><head><title>Corazón Anatómico para Mamá</title><style>
-/* --- ESTILOS DE ACCESIBILIDAD --- */
-.sr-only {
-&nbsp; position: absolute;
-&nbsp; width: 1px;
-&nbsp; height: 1px;
-&nbsp; padding: 0;
-&nbsp; margin: -1px;
-&nbsp; overflow: hidden;
-&nbsp; clip: rect(0, 0, 0, 0);
-&nbsp; border: 0;
-}
+<html lang="es">
 
-/* --- ESTILOS VISUALES --- */
-*{margin:0;padding:0;box-sizing:border-box}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para la Mejor Mamá del Mundo 💕</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&amp;family=Lato:wght@300;400&amp;family=Dancing+Script:wght@500;700&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        /* ============================================
+   RESET & BASE
+============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
 
-.scene{
-&nbsp; min-height: 100vh; /* Ocupa todo el alto */
-&nbsp; background:#fce8ec; /* Fondo rosa suave */
-&nbsp; display:flex;
-&nbsp; flex-direction:column;
-&nbsp; align-items:center;
-&nbsp; justify-content:center;
-&nbsp; padding:20px;
-&nbsp; position:relative;
-&nbsp; overflow:hidden;
-&nbsp; font-family:Georgia,serif;
-}
+        html {
+            scroll-behavior: smooth
+        }
 
-/* Escalador para responsividad (mantiene la proporción) */
-.scene-scaler {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.3s ease;
-}
+        body {
+            background: #fff5f7;
+            color: #3a1a22;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
 
-@media (max-width: 600px) {
-  .scene-scaler {
-    transform: scale(0.65); /* Escala más agresiva para móviles */
-  }
-}
+        /* ============================================
+   FLOATING HEARTS BACKGROUND
+============================================ */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-.main-row{
-  display:flex;
-  align-items:flex-end;
-  gap:10px; /* Un poco más de separación */
-  margin-bottom:30px;
-  position:relative;
-  z-index:1;
-}
+        .fh {
+            position: absolute;
+            bottom: -60px;
+            font-size: 20px;
+            color: #e8749a;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
 
-/* Personaje SVG */
-.char-wrap{
-  position:relative;
-  flex-shrink:0;
-  width:128px;
-}
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg)
+            }
 
-/* Área de 'biu' */
-.biu-area{
-  position:absolute;
-  top:52px;
-  right:-4px;
-}
+            10% {
+                opacity: .35
+            }
 
-.biu-h{
-  position:absolute;
-  font-size:17px;
-  color:#e82d4a;
-  opacity:0;
-  top:0;
-  left:0;
-  pointer-events:none;
-}
-.biu-h.fly{animation:fly 0.8s ease-out forwards}
-@keyframes fly{0%{opacity:1;transform:translate(0,0) scale(0.5) rotate(-15deg)}100%{opacity:0;transform:translate(56px,-58px) scale(1.3) rotate(22deg)}}
+            90% {
+                opacity: .12
+            }
 
-.biu-txt{
-  position:absolute;
-  top:11px;
-  left:19px;
-  font-size:13px;
-  color:#d4547a;
-  font-style:italic;
-  opacity:0;
-  white-space:nowrap;
-}
-.biu-txt.show{animation:bshow 1s ease forwards}
-@keyframes bshow{0%{opacity:0}20%{opacity:1}75%{opacity:1}100%{opacity:0}}
+            100% {
+                opacity: 0;
+                transform: translateY(-110vh) rotate(720deg)
+            }
+        }
 
-/* --- EL NUEVO GRID ANATÓMICO --- */
-.hgrid{
-  display:grid;
-  /* El grid ahora se adapta dinámicamente en JS */
-  gap:1px; /* Espacio mínimo entre corazones */
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.4); /* Un fondo sutil para resaltar */
-  border-radius: 20px;
-}
+        /* ============================================
+   HERO SECTION
+============================================ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #fce8ec 0%, #fdf0f4 50%, #fce8ec 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px 60px;
+            text-align: center;
+            overflow: hidden;
+        }
 
-.hc{
-  width:16px; /* Corazones más pequeños para más detalle */
-  height:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:14px;
-  color:#e0162e;
-  opacity:0;
-  transform:scale(0) rotate(-30deg);
-}
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
 
-.hc.pop{animation:popin 0.4s cubic-bezier(.25,2.2,.5,1) forwards}
-@keyframes popin{to{opacity:1;transform:scale(1) rotate(0deg)}}
+        .hero-blob-1 {
+            width: 420px;
+            height: 420px;
+            background: rgba(255, 180, 210, .22);
+            top: -80px;
+            right: -80px
+        }
 
-/* Título y Botón */
-.title-wrap{text-align:center;opacity:0;transform:translateY(14px);position:relative;z-index:1}
-.title-wrap.show{animation:fadeup 1.3s ease forwards}
-@keyframes fadeup{to{opacity:1;transform:translateY(0)}}
-.title-main{font-size:32px;color:#c8364f;letter-spacing:0.5px;font-style:italic}
+        .hero-blob-2 {
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 200, 220, .28);
+            bottom: 40px;
+            left: -60px
+        }
 
-.replay-btn{
-  margin-top:15px;
-  padding:8px 24px;
-  background:transparent;
-  border:1.5px solid #c8364f;
-  color:#c8364f;
-  border-radius:20px;
-  cursor:pointer;
-  font-size:14px;
-  font-family:Georgia,serif;
-  opacity:0;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-  transition:background 0.2s,color 0.2s;
-}
-.replay-btn:hover{background:#c8364f;color:white}
-.replay-btn.show{animation:fadeup 0.8s 0.3s ease forwards}
-</style>
+        .hero-tag {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(16px, 3vw, 22px);
+            color: #c8607a;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            animation: fadeDown .8s ease both;
+        }
 
-</head><body>
-  
-  <h1 class="sr-only">Animación de corazón anatómico para mamá con la frase La Mejor Mamá del Mundo</h1>
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px)
+            }
 
-  <div class="scene">
-    <div class="scene-scaler">
-      <div class="main-row">
-        <div class="char-wrap">
-          <svg width="128" height="205" viewBox="0 0 128 205" xmlns="http://www.w3.org/2000/svg">
-            <rect x="36" y="108" width="54" height="66" rx="20" fill="white" stroke="#222" stroke-width="2.5"></rect>
-            <circle cx="63" cy="77" r="38" fill="white" stroke="#222" stroke-width="2.5"></circle>
-            <ellipse cx="51" cy="72" rx="4.5" ry="5" fill="#222"></ellipse>
-            <ellipse cx="75" cy="72" rx="4.5" ry="5" fill="#222"></ellipse>
-            <circle cx="53" cy="70" r="1.8" fill="white"></circle>
-            <circle cx="77" cy="70" r="1.8" fill="white"></circle>
-            <path d="M50 87 Q63 98 76 87" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round"></path>
-            <ellipse cx="40" cy="82" rx="10" ry="6.5" fill="#ffb3c6" opacity="0.5"></ellipse>
-            <ellipse cx="86" cy="82" rx="10" ry="6.5" fill="#ffb3c6" opacity="0.5"></ellipse>
-            <path d="M36 122 Q18 144 15 158" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"></path>
-            <path d="M90 118 Q108 101 120 89" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"></path>
-            <circle cx="122" cy="86" r="5.5" fill="white" stroke="#222" stroke-width="2"></circle>
-            <rect x="42" y="167" width="19" height="33" rx="9.5" fill="white" stroke="#222" stroke-width="2.5"></rect>
-            <rect x="65" y="167" width="19" height="33" rx="9.5" fill="white" stroke="#222" stroke-width="2.5"></rect>
-          </svg>
-          <div class="biu-area">
-            <div class="biu-h fly" id="bh">❤</div>
-            <div class="biu-txt show" id="bt">biu</div>
-          </div>
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero-main-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: clamp(8px, 2vw, 16px);
+            margin-bottom: clamp(16px, 4vw, 28px);
+            flex-wrap: wrap;
+        }
+
+        /* Personaje chibi */
+        .char-wrap {
+            position: relative;
+            flex-shrink: 0;
+            width: clamp(90px, 15vw, 140px)
+        }
+
+        .biu-area {
+            position: absolute;
+            top: 26%;
+            right: -4px
+        }
+
+        .biu-h {
+            position: absolute;
+            font-size: clamp(13px, 2vw, 18px);
+            color: #e82d4a;
+            opacity: 0;
+            top: 0;
+            left: 0;
+            pointer-events: none
+        }
+
+        .biu-h.fly {
+            animation: fly .8s ease-out forwards
+        }
+
+        @keyframes fly {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(.5) rotate(-15deg)
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(52px, -55px) scale(1.3) rotate(22deg)
+            }
+        }
+
+        .biu-txt {
+            position: absolute;
+            top: 11px;
+            left: 18px;
+            font-size: 13px;
+            color: #d4547a;
+            font-style: italic;
+            opacity: 0;
+            white-space: nowrap
+        }
+
+        .biu-txt.show {
+            animation: bshow 1s ease forwards
+        }
+
+        @keyframes bshow {
+            0% {
+                opacity: 0
+            }
+
+            20% {
+                opacity: 1
+            }
+
+            75% {
+                opacity: 1
+            }
+
+            100% {
+                opacity: 0
+            }
+        }
+
+        /* Heart grid */
+        .hgrid {
+            display: grid;
+            gap: clamp(1px, 0.4vw, 3px)
+        }
+
+        .hc {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0162e;
+            opacity: 0;
+            transform: scale(0) rotate(-30deg);
+        }
+
+        .hc.pop {
+            animation: popin .38s cubic-bezier(.25, 2.2, .5, 1) forwards
+        }
+
+        @keyframes popin {
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg)
+            }
+        }
+
+        /* Hero title */
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(26px, 6vw, 52px);
+            color: #b83050;
+            font-style: italic;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: none;
+        }
+
+        .hero-title.show {
+            animation: fadeup 1.3s ease forwards
+        }
+
+        @keyframes fadeup {
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(16px, 3.5vw, 26px);
+            color: #d4547a;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        .hero-subtitle.show {
+            animation: fadeup 1.3s .3s ease forwards
+        }
+
+        .scroll-hint {
+            margin-top: clamp(24px, 5vw, 48px);
+            font-size: 13px;
+            color: #c8607a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: bounce 2s ease infinite;
+            opacity: 0;
+        }
+
+        .scroll-hint.show {
+            animation: bounce 2s ease infinite, fadeup .8s .6s ease forwards
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(6px)
+            }
+        }
+
+        .replay-btn {
+            margin-top: 18px;
+            padding: 9px 26px;
+            background: transparent;
+            border: 1.5px solid #b83050;
+            color: #b83050;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 1px;
+            opacity: 0;
+            display: inline-block;
+            transition: background .2s, color .2s;
+        }
+
+        .replay-btn:hover {
+            background: #b83050;
+            color: #fff
+        }
+
+        .replay-btn.show {
+            animation: fadeup .8s .4s ease forwards
+        }
+
+        /* ============================================
+   DIVIDER
+============================================ */
+        .divider {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px 0 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(22px, 4vw, 32px);
+            color: #d47090;
+            letter-spacing: 6px;
+        }
+
+        /* ============================================
+   SECTION SHARED
+============================================ */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: clamp(50px, 8vw, 90px) clamp(20px, 5vw, 60px);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(14px, 2.5vw, 18px);
+            color: #c8607a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 44px);
+            color: #3a1a22;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: clamp(30px, 5vw, 50px);
+        }
+
+        .section-title em {
+            color: #b83050;
+            font-style: italic
+        }
+
+        /* ============================================
+   CARTA / LETTER
+============================================ */
+        .letter-section {
+            background: transparent
+        }
+
+        .letter-card {
+            background: #fffaf9;
+            border: 1px solid #f0d0da;
+            border-radius: 24px;
+            padding: clamp(30px, 5vw, 60px);
+            position: relative;
+            box-shadow: 0 8px 40px rgba(180, 60, 100, .07);
+        }
+
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px dashed #f5c0d0;
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .letter-date {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(15px, 2.5vw, 20px);
+            color: #c8607a;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .letter-body {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(16px, 2.2vw, 20px);
+            line-height: 1.9;
+            color: #4a2030;
+            font-style: italic;
+        }
+
+        .letter-body p {
+            margin-bottom: 20px
+        }
+
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(22px, 4vw, 36px);
+            color: #b83050;
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        .letter-hearts {
+            text-align: right;
+            font-size: 22px;
+            letter-spacing: 4px;
+            margin-top: 8px;
+            color: #e82d4a;
+        }
+
+        /* ============================================
+   QUALITIES CARDS
+============================================ */
+        .qualities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+            gap: clamp(16px, 3vw, 24px);
+        }
+
+        .q-card {
+            background: #fff;
+            border: 1px solid #f0d0da;
+            border-radius: 20px;
+            padding: clamp(24px, 4vw, 36px) clamp(20px, 3vw, 28px);
+            text-align: center;
+            transition: transform .25s ease, box-shadow .25s ease;
+            cursor: default;
+        }
+
+        .q-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(180, 60, 100, .12);
+        }
+
+        .q-icon {
+            font-size: clamp(36px, 5vw, 48px);
+            margin-bottom: 14px;
+            display: block
+        }
+
+        .q-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(17px, 2.5vw, 21px);
+            color: #3a1a22;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .q-desc {
+            font-size: clamp(13px, 1.8vw, 15px);
+            color: #7a4a58;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+   MEMORIES / MOMENTOS
+============================================ */
+        .memories-section {
+            background: linear-gradient(135deg, #fce8ec 0%, #fdf5f7 100%);
+            border-radius: 32px;
+            margin: 0 clamp(10px, 3vw, 30px);
+            padding: clamp(40px, 6vw, 70px) clamp(20px, 5vw, 60px);
+        }
+
+        .memories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+            gap: clamp(16px, 3vw, 24px);
+            margin-top: clamp(24px, 4vw, 40px);
+        }
+
+        .mem-card {
+            background: rgba(255, 255, 255, .75);
+            border: 1px solid rgba(255, 190, 210, .5);
+            border-radius: 16px;
+            padding: clamp(20px, 3vw, 28px);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            transition: transform .2s ease;
+        }
+
+        .mem-card:hover {
+            transform: translateY(-4px)
+        }
+
+        .mem-num {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 52px);
+            color: #f0b8cc;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .mem-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(14px, 2vw, 17px);
+            color: #4a2030;
+            font-style: italic;
+            line-height: 1.7;
+            padding-top: 6px;
+        }
+
+        /* ============================================
+   BIG QUOTE
+============================================ */
+        .quote-wrap {
+            text-align: center;
+            padding: clamp(50px, 8vw, 80px) clamp(20px, 8vw, 120px);
+        }
+
+        .big-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 4.5vw, 42px);
+            color: #3a1a22;
+            font-style: italic;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .big-quote::before,
+        .big-quote::after {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(60px, 10vw, 120px);
+            color: #f5c0d0;
+            line-height: 0;
+            position: absolute;
+        }
+
+        .big-quote::before {
+            content: '"';
+            top: 30px;
+            left: -20px
+        }
+
+        .big-quote::after {
+            content: '"';
+            bottom: -20px;
+            right: -10px
+        }
+
+        .quote-author {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(16px, 2.5vw, 22px);
+            color: #c8607a;
+            margin-top: 24px;
+        }
+
+        /* ============================================
+   FOOTER / CIERRE
+============================================ */
+        .footer-section {
+            background: linear-gradient(160deg, #fce8ec, #f9d6e0);
+            text-align: center;
+            padding: clamp(50px, 8vw, 80px) 20px clamp(40px, 6vw, 60px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-hearts {
+            font-size: clamp(30px, 5vw, 48px);
+            letter-spacing: clamp(6px, 2vw, 16px);
+            color: #e82d4a;
+            margin-bottom: 20px;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.08)
+            }
+        }
+
+        .footer-msg {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 4vw, 36px);
+            color: #b83050;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .footer-sub {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(16px, 3vw, 24px);
+            color: #c8607a;
+        }
+
+        /* ============================================
+   SCROLL REVEAL
+============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .7s ease, transform .7s ease
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ============================================
+   RESPONSIVE TWEAKS
+============================================ */
+        @media(max-width:480px) {
+
+            .big-quote::before,
+            .big-quote::after {
+                display: none
+            }
+
+            .letter-card::before {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== FLOATING HEARTS BG ===== -->
+    <div class="hearts-bg" id="heartsBg">
+        <div class="fh"
+            style="left: 37.6867%; font-size: 25.0833px; animation-duration: 18.9824s; animation-delay: 2.18517s;">❤
         </div>
-        <div class="hgrid" id="hgrid" style="grid-template-columns: repeat(16, 23px);"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc pop">❤</div><div class="hc pop">❤</div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
-      </div>
-
-      <div class="title-wrap show" id="title">
-        <div class="title-main">La Mejor Mamá del Mundo</div>
-      </div>
-
-      <button class="replay-btn show" id="rbtn" onclick="start()">↺ Volver a ver</button>
+        <div class="fh"
+            style="left: 58.702%; font-size: 25.7746px; animation-duration: 16.4996s; animation-delay: 9.60123s;">💕
+        </div>
+        <div class="fh"
+            style="left: 87.5433%; font-size: 22.9729px; animation-duration: 11.3161s; animation-delay: 6.8282s;">🌸
+        </div>
+        <div class="fh"
+            style="left: 24.2691%; font-size: 15.7822px; animation-duration: 16.8234s; animation-delay: 9.80576s;">💖
+        </div>
+        <div class="fh"
+            style="left: 25.2362%; font-size: 24.0857px; animation-duration: 19.4663s; animation-delay: 3.19578s;">✿
+        </div>
+        <div class="fh"
+            style="left: 99.8819%; font-size: 27.4482px; animation-duration: 11.6482s; animation-delay: 5.58519s;">❤
+        </div>
+        <div class="fh"
+            style="left: 79.2009%; font-size: 30.9758px; animation-duration: 12.7181s; animation-delay: 2.83804s;">💕
+        </div>
+        <div class="fh"
+            style="left: 93.9526%; font-size: 23.0566px; animation-duration: 15.5599s; animation-delay: 7.61241s;">🌸
+        </div>
+        <div class="fh"
+            style="left: 61.0775%; font-size: 20.4481px; animation-duration: 13.0793s; animation-delay: 0.646666s;">💖
+        </div>
+        <div class="fh"
+            style="left: 70.6147%; font-size: 14.4128px; animation-duration: 9.19506s; animation-delay: 3.62829s;">✿
+        </div>
+        <div class="fh"
+            style="left: 54.3731%; font-size: 14.6789px; animation-duration: 16.8465s; animation-delay: 3.93756s;">❤
+        </div>
+        <div class="fh"
+            style="left: 19.6167%; font-size: 18.9235px; animation-duration: 9.66096s; animation-delay: 9.35198s;">💕
+        </div>
+        <div class="fh"
+            style="left: 70.6988%; font-size: 16.0029px; animation-duration: 11.3786s; animation-delay: 1.85381s;">🌸
+        </div>
+        <div class="fh"
+            style="left: 77.9846%; font-size: 20.6272px; animation-duration: 17.1417s; animation-delay: 0.412808s;">💖
+        </div>
+        <div class="fh"
+            style="left: 35.2665%; font-size: 14.0464px; animation-duration: 11.5622s; animation-delay: 7.95s;">✿</div>
+        <div class="fh"
+            style="left: 40.0437%; font-size: 23.0096px; animation-duration: 12.3666s; animation-delay: 7.44926s;">❤
+        </div>
+        <div class="fh"
+            style="left: 54.3458%; font-size: 14.6112px; animation-duration: 12.8414s; animation-delay: 3.39663s;">💕
+        </div>
+        <div class="fh"
+            style="left: 62.8592%; font-size: 16.0391px; animation-duration: 9.10752s; animation-delay: 6.60546s;">🌸
+        </div>
     </div>
-  </div>
 
-<script>
-// --- EL MAPA DEL CORAZÓN ANATÓMICO (Matriz de 1s y 0s) ---
-// He reducido el detalle para que sea manejable, pero mantiene la forma compleja.
-// Cada '1' es un corazón, cada '0' es espacio vacío.
-const HEART_MAP = [
- ,
- ,
- ,
- ,
- ,
- ,
- ,
- ,
- ,
- ,
- ,
- ,
- ,
- 
-];
+    <!-- ===== HERO ===== -->
+    <div class="hero">
+        <div class="hero-blob hero-blob-1"></div>
+        <div class="hero-blob hero-blob-2"></div>
 
-const ROWS = HEART_MAP.length;
-const COLS = HEART_MAP.length;
-const CELL_SIZE = 16; // Tamaño de cada celda (coincide con CSS .hc)
+        <p class="hero-tag">✦ Con todo el amor del mundo ✦</p>
 
-let T=[];
-function clr(){T.forEach(clearTimeout);T=[];}
+        <div class="hero-main-row">
+            <div class="char-wrap">
+                <svg id="heroSvg" viewBox="0 0 128 205" xmlns="http://www.w3.org/2000/svg"
+                    style="width:100%;height:auto">
+                    <rect x="36" y="108" width="54" height="66" rx="20" fill="white" stroke="#222" stroke-width="2.5">
+                    </rect>
+                    <circle cx="63" cy="77" r="38" fill="white" stroke="#222" stroke-width="2.5"></circle>
+                    <ellipse cx="51" cy="72" rx="4.5" ry="5" fill="#222"></ellipse>
+                    <ellipse cx="75" cy="72" rx="4.5" ry="5" fill="#222"></ellipse>
+                    <circle cx="53" cy="70" r="1.8" fill="white"></circle>
+                    <circle cx="77" cy="70" r="1.8" fill="white"></circle>
+                    <path d="M50 87 Q63 98 76 87" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round">
+                    </path>
+                    <ellipse cx="40" cy="82" rx="10" ry="6.5" fill="#ffb3c6" opacity="0.5"></ellipse>
+                    <ellipse cx="86" cy="82" rx="10" ry="6.5" fill="#ffb3c6" opacity="0.5"></ellipse>
+                    <path d="M36 122 Q18 144 15 158" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round">
+                    </path>
+                    <path d="M90 118 Q108 101 120 89" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round">
+                    </path>
+                    <circle cx="122" cy="86" r="5.5" fill="white" stroke="#222" stroke-width="2"></circle>
+                    <rect x="42" y="167" width="19" height="33" rx="9.5" fill="white" stroke="#222" stroke-width="2.5">
+                    </rect>
+                    <rect x="65" y="167" width="19" height="33" rx="9.5" fill="white" stroke="#222" stroke-width="2.5">
+                    </rect>
+                </svg>
+                <div class="biu-area">
+                    <div class="biu-h fly" id="bh">❤</div>
+                    <div class="biu-txt show" id="bt">biu</div>
+                </div>
+            </div>
+            <div class="hgrid" id="hgrid" style="grid-template-columns: repeat(16, 23px); gap: clamp(1px, 0.4vw, 3px);">
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc"></div>
+                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc"></div>
+                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc pop">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc pop">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
+            </div>
+        </div>
 
-function biu(){
-&nbsp; const h=document.getElementById('bh'),l=document.getElementById('bt');
-&nbsp; h.className='biu-h';l.className='biu-txt';
-&nbsp; void h.offsetWidth;
-&nbsp; h.className='biu-h fly';l.className='biu-txt show';
-}
+        <h1 class="hero-title show" id="heroTitle">La Mejor Mamá del Mundo</h1>
+        <p class="hero-subtitle show" id="heroSub">Este día es completamente tuyo, mamá 🌸</p>
+        <div class="scroll-hint show" id="scrollHint">↓ &nbsp; sigue leyendo &nbsp; ↓</div>
+        <button class="replay-btn show" id="rbtn" onclick="startHeart()">↺ Volver a ver</button>
+    </div>
 
-function start(){
-&nbsp; clr();
-&nbsp; const grid=document.getElementById('hgrid');
-&nbsp; grid.innerHTML='';
-&nbsp; document.getElementById('title').className='title-wrap';
-&nbsp; document.getElementById('rbtn').className='replay-btn';
-&nbsp; document.getElementById('bh').className='biu-h';
-&nbsp; document.getElementById('bt').className='biu-txt';
+    <div class="divider reveal">❤ ❤ ❤</div>
 
-&nbsp; // Configurar las columnas del grid dinámicamente
-&nbsp; grid.style.gridTemplateColumns='repeat('+COLS+','+CELL_SIZE+'px)';
+    <!-- ===== CARTA ===== -->
+    <section class="letter-section reveal">
+        <span class="section-label">— una carta para ti —</span>
+        <h2 class="section-title">Todo lo que quiero <em>decirte</em></h2>
+        <div class="letter-card">
+            <span class="letter-date">Día de la Madre, con todo mi corazón</span>
+            <div class="letter-body">
+                <p>Mamá,</p>
+                <p>Hay palabras que uno guarda por años porque no sabe cómo decirlas bien, y creo que hoy es el momento
+                    perfecto para intentarlo. Gracias. Gracias por cada madrugada que estuviste despierta cuando yo no
+                    lo sabía, por cada preocupación que cargaste sola para no angustiarme, por cada abrazo que llegó
+                    justo cuando más lo necesitaba.</p>
+                <p>Eres la persona que me enseñó que el amor no se dice tanto como se demuestra: en los detalles
+                    pequeños, en la comida lista cuando llegaba, en el "ten cuidado" de cada salida, en esa mirada tuya
+                    que lo dice todo sin pronunciar una sola palabra.</p>
+                <p>No hay ningún premio, ninguna tarjeta, ninguna página web que pueda resumir todo lo que significas
+                    para mí. Pero quiero que sepas que te pienso, que te admiro, y que cada día agradezco haber tenido
+                    la suerte inmensa de tenerte como mamá.</p>
+                <p>Hoy y siempre, todo mi amor es tuyo.</p>
+            </div>
+            <div class="letter-signature">Con amor eterno,<br>Tu hij@ ❤</div>
+            <div class="letter-hearts">❤ ❤ ❤</div>
+        </div>
+    </section>
 
-&nbsp; const cells=[];
-&nbsp; HEART_MAP.forEach((row,r)=>row.forEach((v,c)=>{
-&nbsp; &nbsp; const d=document.createElement('div');
-&nbsp; &nbsp; d.className='hc';
-&nbsp; &nbsp; if(v){
-      d.textContent='❤';
-      // Guardamos la posición original para el orden de animación
-      d._r=r;
-      d._c=c;
-      cells.push(d);
-    }
-&nbsp; &nbsp; grid.appendChild(d);
-&nbsp; }));
+    <!-- ===== QUALITIES ===== -->
+    <section class="reveal">
+        <span class="section-label">— lo que te hace única —</span>
+        <h2 class="section-title">Tus <em>superpoderes</em> de mamá</h2>
+        <div class="qualities-grid">
+            <div class="q-card">
+                <span class="q-icon">🌙</span>
+                <div class="q-title">Guardiana de sueños</div>
+                <p class="q-desc">Siempre encontraste la manera de que sintiéramos que todo iba a estar bien, incluso
+                    cuando tú también tenías miedos.</p>
+            </div>
+            <div class="q-card">
+                <span class="q-icon">🍲</span>
+                <div class="q-title">Chef del alma</div>
+                <p class="q-desc">Tu cocina nunca fue solo comida. Fue amor convertido en sabores que siguen siendo los
+                    más ricos del mundo.</p>
+            </div>
+            <div class="q-card">
+                <span class="q-icon">💪</span>
+                <div class="q-title">Fuerza imparable</div>
+                <p class="q-desc">Superaste cosas que habrían tumbado a cualquiera, y lo hiciste sonriendo para que
+                    nosotros no nos preocupáramos.</p>
+            </div>
+            <div class="q-card">
+                <span class="q-icon">🎓</span>
+                <div class="q-title">Maestra de vida</div>
+                <p class="q-desc">Sin aula ni pizarrón, me enseñaste los valores que más importan: honestidad, esfuerzo,
+                    y bondad.</p>
+            </div>
+            <div class="q-card">
+                <span class="q-icon">🤗</span>
+                <div class="q-title">Puerto seguro</div>
+                <p class="q-desc">Siempre hay un lugar en el mundo donde uno sabe que será recibido con amor. Ese lugar
+                    eres tú.</p>
+            </div>
+            <div class="q-card">
+                <span class="q-icon">✨</span>
+                <div class="q-title">Luz propia</div>
+                <p class="q-desc">Tienes esa rara habilidad de iluminar cualquier espacio con tu presencia. Todos lo
+                    notan cuando llegas.</p>
+            </div>
+        </div>
+    </section>
 
-&nbsp; // --- EL TRUCO DEL BARRIDO ---
-  // Ordenamos los corazones por columna (izquierda a derecha) 
-  // y luego por fila (arriba a abajo) para ese efecto de 'llenado'
-&nbsp; cells.sort((a,b)=>a._c-b._c||a._r-b._r);
+    <!-- ===== BIG QUOTE ===== -->
+    <div class="quote-wrap reveal">
+        <p class="big-quote">Una madre es quien puede tomar el lugar de todos los demás, pero cuyo lugar nadie más puede
+            ocupar.</p>
+        <p class="quote-author">— Gaspard Mermillod</p>
+    </div>
 
-&nbsp; const START_DELAY=350,STEP_TIME=45; // Tiempos ajustados para el nuevo mapa
-&nbsp; cells.forEach((c,i)=>{
-&nbsp; &nbsp; T.push(setTimeout(()=>c.classList.add('pop'),START_DELAY+i*STEP_TIME));
-&nbsp; });
+    <!-- ===== MEMORIES ===== -->
+    <div class="memories-section reveal">
+        <div style="max-width:1100px;margin:0 auto">
+            <span class="section-label">— momentos que atesoro —</span>
+            <h2 class="section-title">Recuerdos que <em>nunca olvidaré</em></h2>
+            <div class="memories-grid">
+                <div class="mem-card">
+                    <span class="mem-num">01</span>
+                    <p class="mem-text">Esas tardes cuando llegaba del colegio y la casa olía a tu comida. Era el olor
+                        de estar en casa.</p>
+                </div>
+                <div class="mem-card">
+                    <span class="mem-num">02</span>
+                    <p class="mem-text">Cuando estaba enfermo y tú dejabas todo para quedarte a mi lado. Enfermarse casi
+                        valía la pena.</p>
+                </div>
+                <div class="mem-card">
+                    <span class="mem-num">03</span>
+                    <p class="mem-text">Tus consejos que en ese momento no quería escuchar y que con el tiempo siempre
+                        resultaron tener razón.</p>
+                </div>
+                <div class="mem-card">
+                    <span class="mem-num">04</span>
+                    <p class="mem-text">Las risas que nos reímos juntos. Contigo todo se siente más ligero, más fácil,
+                        más bonito.</p>
+                </div>
+                <div class="mem-card">
+                    <span class="mem-num">05</span>
+                    <p class="mem-text">Cuando me defendiste sin dudar. No lo dudaste ni un segundo. Eso lo guardaré
+                        toda la vida.</p>
+                </div>
+                <div class="mem-card">
+                    <span class="mem-num">06</span>
+                    <p class="mem-text">Verte feliz. Cada vez que te he visto feliz, ha sido uno de los mejores momentos
+                        de mi vida.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  // Lanzamientos de 'biu' coordinados con el llenado
-&nbsp;.forEach(o=>{
-&nbsp; &nbsp; T.push(setTimeout(biu,o+100));
-&nbsp; });
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer-section">
+        <div class="footer-hearts">❤ ❤ ❤ ❤ ❤</div>
+        <p class="footer-msg">Mamá, te amo más de lo que las palabras pueden decir.</p>
+        <p class="footer-sub">Hecho con todo el amor del mundo, solo para ti 🌸</p>
+    </footer>
 
-&nbsp; const end=START_DELAY+cells.length*STEP_TIME+600;
-&nbsp; T.push(setTimeout(()=>document.getElementById('title').className='title-wrap show',end));
-&nbsp; T.push(setTimeout(()=>document.getElementById('rbtn').className='replay-btn show',end+900));
-}
-start();
-</script>
-</body></html>
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        /* ----- FLOATING HEARTS ----- */
+        const bg = document.getElementById('heartsBg');
+        const emojis = ['❤', '💕', '🌸', '💖', '✿'];
+        for (let i = 0; i < 18; i++) {
+            const h = document.createElement('div');
+            h.className = 'fh';
+            h.textContent = emojis[i % emojis.length];
+            h.style.left = Math.random() * 100 + '%';
+            h.style.fontSize = (14 + Math.random() * 18) + 'px';
+            h.style.animationDuration = (8 + Math.random() * 14) + 's';
+            h.style.animationDelay = (Math.random() * 10) + 's';
+            bg.appendChild(h);
+        }
+
+        /* ----- HEART ANIMATION ----- */
+        const COLS = 16, ROWS = 14, XS = 1.4, YS = 1.22, EPS = 0.04;
+
+        function makeHeart() {
+            const p = [];
+            for (let r = 0; r < ROWS; r++) {
+                const row = [];
+                for (let c = 0; c < COLS; c++) {
+                    const x = (c - (COLS - 1) / 2) / ((COLS - 1) / 2) * XS;
+                    const y = -((r - (ROWS - 1) / 2) / ((ROWS - 1) / 2) * YS);
+                    const v = Math.pow(x * x + y * y - 1, 3) - x * x * y * y * y;
+                    row.push(v <= EPS ? 1 : 0);
+                }
+                p.push(row);
+            }
+            return p;
+        }
+
+        let T = [];
+        function clr() { T.forEach(clearTimeout); T = []; }
+
+        function biu() {
+            const h = document.getElementById('bh'), l = document.getElementById('bt');
+            h.className = 'biu-h'; l.className = 'biu-txt';
+            void h.offsetWidth;
+            h.className = 'biu-h fly'; l.className = 'biu-txt show';
+        }
+
+        function getCellSize() {
+            const vw = window.innerWidth;
+            if (vw < 400) return 13;
+            if (vw < 600) return 16;
+            if (vw < 900) return 20;
+            return 23;
+        }
+
+        function startHeart() {
+            clr();
+            const grid = document.getElementById('hgrid');
+            grid.innerHTML = '';
+            document.getElementById('heroTitle').className = 'hero-title';
+            document.getElementById('heroSub').className = 'hero-subtitle';
+            document.getElementById('scrollHint').className = 'scroll-hint';
+            document.getElementById('rbtn').className = 'replay-btn';
+            document.getElementById('bh').className = 'biu-h';
+            document.getElementById('bt').className = 'biu-txt';
+
+            const CS = getCellSize();
+            const P = makeHeart();
+            grid.style.gridTemplateColumns = 'repeat(' + COLS + ',' + CS + 'px)';
+            grid.style.gap = CS <= 13 ? '1px' : 'clamp(1px,0.4vw,3px)';
+
+            const cells = [];
+            P.forEach((row, r) => row.forEach((v, c) => {
+                const d = document.createElement('div');
+                d.className = 'hc';
+                d.style.width = CS + 'px'; d.style.height = CS + 'px';
+                d.style.fontSize = (CS * .75) + 'px';
+                // Ejemplo: Borrar el corazón que está en la fila 5, columna 8
+                if (v && !(r === 8 && c === 2) && !(r === 8 && c === 13)) {
+                    d.textContent = '❤'; // <--- ¡No olvides esta línea!
+                    d._r = r;
+                    d._c = c;
+                    cells.push(d);
+                }
+                grid.appendChild(d);
+
+            }));
+
+            cells.sort((a, b) => a._c - b._c || a._r - b._r);
+
+            const S = 350, ST = 50;
+            cells.forEach((c, i) => {
+                T.push(setTimeout(() => c.classList.add('pop'), S + i * ST));
+            });
+            [0, 900, 2000, 3300, 4500].forEach(o => {
+                T.push(setTimeout(biu, o + 100));
+            });
+            const end = S + cells.length * ST + 500;
+            T.push(setTimeout(() => {
+                document.getElementById('heroTitle').className = 'hero-title show';
+                document.getElementById('heroSub').className = 'hero-subtitle show';
+                document.getElementById('scrollHint').className = 'scroll-hint show';
+            }, end));
+            T.push(setTimeout(() => {
+                document.getElementById('rbtn').className = 'replay-btn show';
+            }, end + 900));
+        }
+        startHeart();
+
+        /* ----- SCROLL REVEAL ----- */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+            });
+        }, { threshold: .12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        /* ----- RESIZE: restart heart if size changes significantly ----- */
+        let lastVW = window.innerWidth;
+        window.addEventListener('resize', () => {
+            if (Math.abs(window.innerWidth - lastVW) > 100) { lastVW = window.innerWidth; startHeart(); }
+        });
+    </script>
+
+
+</body>
+
+</html>
