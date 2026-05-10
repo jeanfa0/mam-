@@ -1,1218 +1,671 @@
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para la Mejor Mamá del Mundo 💕</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&amp;family=Lato:wght@300;400&amp;family=Dancing+Script:wght@500;700&amp;display=swap"
-        rel="stylesheet">
-    <style>
-        /* ============================================
-   RESET & BASE
-============================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            background: #fff5f7;
-            color: #3a1a22;
-            font-family: 'Lato', sans-serif;
-            font-weight: 300;
-            overflow-x: hidden;
-        }
-
-        /* ============================================
-   FLOATING HEARTS BACKGROUND
-============================================ */
-        .hearts-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .fh {
-            position: absolute;
-            bottom: -60px;
-            font-size: 20px;
-            color: #e8749a;
-            opacity: 0;
-            animation: floatUp linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 0;
-                transform: translateY(0) rotate(0deg)
-            }
-
-            10% {
-                opacity: .35
-            }
-
-            90% {
-                opacity: .12
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-110vh) rotate(720deg)
-            }
-        }
-
-        /* ============================================
-   HERO SECTION
-============================================ */
-        .hero {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            background: linear-gradient(160deg, #fce8ec 0%, #fdf0f4 50%, #fce8ec 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px 60px;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .hero-blob {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero-blob-1 {
-            width: 420px;
-            height: 420px;
-            background: rgba(255, 180, 210, .22);
-            top: -80px;
-            right: -80px
-        }
-
-        .hero-blob-2 {
-            width: 280px;
-            height: 280px;
-            background: rgba(255, 200, 220, .28);
-            bottom: 40px;
-            left: -60px
-        }
-
-        .hero-tag {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(16px, 3vw, 22px);
-            color: #c8607a;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            animation: fadeDown .8s ease both;
-        }
-
-        @keyframes fadeDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px)
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0)
-            }
-        }
-
-        .hero-main-row {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: clamp(8px, 2vw, 16px);
-            margin-bottom: clamp(16px, 4vw, 28px);
-            flex-wrap: wrap;
-        }
-
-        /* Personaje chibi */
-        .char-wrap {
-            position: relative;
-            flex-shrink: 0;
-            width: clamp(90px, 15vw, 140px)
-        }
-
-        .biu-area {
-            position: absolute;
-            top: 26%;
-            right: -4px
-        }
-
-        .biu-h {
-            position: absolute;
-            font-size: clamp(13px, 2vw, 18px);
-            color: #e82d4a;
-            opacity: 0;
-            top: 0;
-            left: 0;
-            pointer-events: none
-        }
-
-        .biu-h.fly {
-            animation: fly .8s ease-out forwards
-        }
-
-        @keyframes fly {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(.5) rotate(-15deg)
-            }
-
-            100% {
-                opacity: 0;
-                transform: translate(52px, -55px) scale(1.3) rotate(22deg)
-            }
-        }
-
-        .biu-txt {
-            position: absolute;
-            top: 11px;
-            left: 18px;
-            font-size: 13px;
-            color: #d4547a;
-            font-style: italic;
-            opacity: 0;
-            white-space: nowrap
-        }
-
-        .biu-txt.show {
-            animation: bshow 1s ease forwards
-        }
-
-        @keyframes bshow {
-            0% {
-                opacity: 0
-            }
-
-            20% {
-                opacity: 1
-            }
-
-            75% {
-                opacity: 1
-            }
-
-            100% {
-                opacity: 0
-            }
-        }
-
-        /* Heart grid */
-        .hgrid {
-            display: grid;
-            gap: clamp(1px, 0.4vw, 3px)
-        }
-
-        .hc {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #e0162e;
-            opacity: 0;
-            transform: scale(0) rotate(-30deg);
-        }
-
-        .hc.pop {
-            animation: popin .38s cubic-bezier(.25, 2.2, .5, 1) forwards
-        }
-
-        @keyframes popin {
-            to {
-                opacity: 1;
-                transform: scale(1) rotate(0deg)
-            }
-        }
-
-        /* Hero title */
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(26px, 6vw, 52px);
-            color: #b83050;
-            font-style: italic;
-            letter-spacing: 1px;
-            line-height: 1.2;
-            opacity: 0;
-            transform: translateY(16px);
-            transition: none;
-        }
-
-        .hero-title.show {
-            animation: fadeup 1.3s ease forwards
-        }
-
-        @keyframes fadeup {
-            to {
-                opacity: 1;
-                transform: translateY(0)
-            }
-        }
-
-        .hero-subtitle {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(16px, 3.5vw, 26px);
-            color: #d4547a;
-            margin-top: 10px;
-            opacity: 0;
-            transform: translateY(12px);
-        }
-
-        .hero-subtitle.show {
-            animation: fadeup 1.3s .3s ease forwards
-        }
-
-        .scroll-hint {
-            margin-top: clamp(24px, 5vw, 48px);
-            font-size: 13px;
-            color: #c8607a;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            animation: bounce 2s ease infinite;
-            opacity: 0;
-        }
-
-        .scroll-hint.show {
-            animation: bounce 2s ease infinite, fadeup .8s .6s ease forwards
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0)
-            }
-
-            50% {
-                transform: translateY(6px)
-            }
-        }
-
-        .replay-btn {
-            margin-top: 18px;
-            padding: 9px 26px;
-            background: transparent;
-            border: 1.5px solid #b83050;
-            color: #b83050;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: 'Lato', sans-serif;
-            letter-spacing: 1px;
-            opacity: 0;
-            display: inline-block;
-            transition: background .2s, color .2s;
-        }
-
-        .replay-btn:hover {
-            background: #b83050;
-            color: #fff
-        }
-
-        .replay-btn.show {
-            animation: fadeup .8s .4s ease forwards
-        }
-
-        /* ============================================
-   DIVIDER
-============================================ */
-        .divider {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 20px 0 0;
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(22px, 4vw, 32px);
-            color: #d47090;
-            letter-spacing: 6px;
-        }
-
-        /* ============================================
-   SECTION SHARED
-============================================ */
-        section {
-            position: relative;
-            z-index: 1;
-            padding: clamp(50px, 8vw, 90px) clamp(20px, 5vw, 60px);
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .section-label {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(14px, 2.5vw, 18px);
-            color: #c8607a;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 5vw, 44px);
-            color: #3a1a22;
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: clamp(30px, 5vw, 50px);
-        }
-
-        .section-title em {
-            color: #b83050;
-            font-style: italic
-        }
-
-        /* ============================================
-   CARTA / LETTER
-============================================ */
-        .letter-section {
-            background: transparent
-        }
-
-        .letter-card {
-            background: #fffaf9;
-            border: 1px solid #f0d0da;
-            border-radius: 24px;
-            padding: clamp(30px, 5vw, 60px);
-            position: relative;
-            box-shadow: 0 8px 40px rgba(180, 60, 100, .07);
-        }
-
-        .letter-card::before {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            right: 12px;
-            bottom: 12px;
-            border: 1px dashed #f5c0d0;
-            border-radius: 16px;
-            pointer-events: none;
-        }
-
-        .letter-date {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(15px, 2.5vw, 20px);
-            color: #c8607a;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .letter-body {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(16px, 2.2vw, 20px);
-            line-height: 1.9;
-            color: #4a2030;
-            font-style: italic;
-        }
-
-        .letter-body p {
-            margin-bottom: 20px
-        }
-
-        .letter-signature {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(22px, 4vw, 36px);
-            color: #b83050;
-            margin-top: 30px;
-            text-align: right;
-        }
-
-        .letter-hearts {
-            text-align: right;
-            font-size: 22px;
-            letter-spacing: 4px;
-            margin-top: 8px;
-            color: #e82d4a;
-        }
-
-        /* ============================================
-   QUALITIES CARDS
-============================================ */
-        .qualities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-            gap: clamp(16px, 3vw, 24px);
-        }
-
-        .q-card {
-            background: #fff;
-            border: 1px solid #f0d0da;
-            border-radius: 20px;
-            padding: clamp(24px, 4vw, 36px) clamp(20px, 3vw, 28px);
-            text-align: center;
-            transition: transform .25s ease, box-shadow .25s ease;
-            cursor: default;
-        }
-
-        .q-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(180, 60, 100, .12);
-        }
-
-        .q-icon {
-            font-size: clamp(36px, 5vw, 48px);
-            margin-bottom: 14px;
-            display: block
-        }
-
-        .q-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(17px, 2.5vw, 21px);
-            color: #3a1a22;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .q-desc {
-            font-size: clamp(13px, 1.8vw, 15px);
-            color: #7a4a58;
-            line-height: 1.7;
-        }
-
-        /* ============================================
-   MEMORIES / MOMENTOS
-============================================ */
-        .memories-section {
-            background: linear-gradient(135deg, #fce8ec 0%, #fdf5f7 100%);
-            border-radius: 32px;
-            margin: 0 clamp(10px, 3vw, 30px);
-            padding: clamp(40px, 6vw, 70px) clamp(20px, 5vw, 60px);
-        }
-
-        .memories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-            gap: clamp(16px, 3vw, 24px);
-            margin-top: clamp(24px, 4vw, 40px);
-        }
-
-        .mem-card {
-            background: rgba(255, 255, 255, .75);
-            border: 1px solid rgba(255, 190, 210, .5);
-            border-radius: 16px;
-            padding: clamp(20px, 3vw, 28px);
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-            transition: transform .2s ease;
-        }
-
-        .mem-card:hover {
-            transform: translateY(-4px)
-        }
-
-        .mem-num {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(36px, 5vw, 52px);
-            color: #f0b8cc;
-            font-weight: 700;
-            line-height: 1;
-            flex-shrink: 0;
-        }
-
-        .mem-text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(14px, 2vw, 17px);
-            color: #4a2030;
-            font-style: italic;
-            line-height: 1.7;
-            padding-top: 6px;
-        }
-
-        /* ============================================
-   BIG QUOTE
-============================================ */
-        .quote-wrap {
-            text-align: center;
-            padding: clamp(50px, 8vw, 80px) clamp(20px, 8vw, 120px);
-        }
-
-        .big-quote {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(22px, 4.5vw, 42px);
-            color: #3a1a22;
-            font-style: italic;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        .big-quote::before,
-        .big-quote::after {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(60px, 10vw, 120px);
-            color: #f5c0d0;
-            line-height: 0;
-            position: absolute;
-        }
-
-        .big-quote::before {
-            content: '"';
-            top: 30px;
-            left: -20px
-        }
-
-        .big-quote::after {
-            content: '"';
-            bottom: -20px;
-            right: -10px
-        }
-
-        .quote-author {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(16px, 2.5vw, 22px);
-            color: #c8607a;
-            margin-top: 24px;
-        }
-
-        /* ============================================
-   FOOTER / CIERRE
-============================================ */
-        .footer-section {
-            background: linear-gradient(160deg, #fce8ec, #f9d6e0);
-            text-align: center;
-            padding: clamp(50px, 8vw, 80px) 20px clamp(40px, 6vw, 60px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-hearts {
-            font-size: clamp(30px, 5vw, 48px);
-            letter-spacing: clamp(6px, 2vw, 16px);
-            color: #e82d4a;
-            margin-bottom: 20px;
-            animation: pulse 2s ease infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1)
-            }
-
-            50% {
-                transform: scale(1.08)
-            }
-        }
-
-        .footer-msg {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 4vw, 36px);
-            color: #b83050;
-            font-style: italic;
-            margin-bottom: 16px;
-        }
-
-        .footer-sub {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(16px, 3vw, 24px);
-            color: #c8607a;
-        }
-
-        /* ============================================
-   SCROLL REVEAL
-============================================ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity .7s ease, transform .7s ease
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0)
-        }
-
-        /* ============================================
-   RESPONSIVE TWEAKS
-============================================ */
-        @media(max-width:480px) {
-
-            .big-quote::before,
-            .big-quote::after {
-                display: none
-            }
-
-            .letter-card::before {
-                display: none
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi fea 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdfaf5;
+    --rose-pale: #fff0f3;
+    --lavender: #f2eef9;
+    --gold: #c4975a;
+    --gold-light: #e8c98a;
+    --wine: #8b3a52;
+    --wine-soft: #b05070;
+    --wine-deep: #6b2a40;
+    --text: #5a3040;
+    --text-light: #8a6070;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  #bg-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; opacity: .45;
+  }
+
+  #petals { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  .petal {
+    position: absolute; top: -30px; opacity: 0;
+    animation: petalFall linear infinite;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0);    opacity: 0; }
+    8%   { opacity: .55; }
+    92%  { opacity: .35; }
+    100% { transform: translateY(105vh) rotate(540deg) translateX(38px); opacity: 0; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 1.1s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-slow {
+    opacity: 0; transform: translateY(18px);
+    transition: opacity 2s ease, transform 1.8s cubic-bezier(.22,1,.36,1);
+  }
+  .reveal-slow.visible { opacity: 1; transform: translateY(0); }
+
+  /* ══ PORTADA ══ */
+  #portada {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 60px 24px 80px;
+    position: relative; z-index: 1;
+    background: linear-gradient(160deg, #fff8fa 0%, #fdf8ee 45%, #f9f0f5 100%);
+    overflow: hidden;
+  }
+  #portada::before {
+    content: ''; position: absolute; top: -140px; right: -100px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(197,151,90,.1) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  #portada::after {
+    content: ''; position: absolute; bottom: -80px; left: -80px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(176,80,112,.07) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+
+  .corner { position: absolute; width: 56px; height: 56px; }
+  .corner--tl { top: 26px; left: 26px; border-top: 1px solid rgba(197,151,90,.4); border-left: 1px solid rgba(197,151,90,.4); }
+  .corner--tr { top: 26px; right: 26px; border-top: 1px solid rgba(197,151,90,.4); border-right: 1px solid rgba(197,151,90,.4); }
+  .corner--bl { bottom: 26px; left: 26px; border-bottom: 1px solid rgba(197,151,90,.4); border-left: 1px solid rgba(197,151,90,.4); }
+  .corner--br { bottom: 26px; right: 26px; border-bottom: 1px solid rgba(197,151,90,.4); border-right: 1px solid rgba(197,151,90,.4); }
+
+  .portada-eyebrow {
+    font-weight: 200; font-size: clamp(10px,2.4vw,12px);
+    letter-spacing: 5px; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 1.2s ease .3s forwards;
+  }
+
+  .heart-svg {
+    width: clamp(70px,15vw,110px); margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 1.2s ease .5s forwards;
+    filter: drop-shadow(0 8px 24px rgba(139,58,82,.2));
+  }
+  .heart-svg path { fill: var(--wine-soft); }
+  .heart-pulse { animation: heartbeat 2.4s ease-in-out infinite; }
+
+  .portada-title {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(48px, 10vw, 96px); line-height: 1.02; color: var(--wine);
+    margin-bottom: 18px; opacity: 0; animation: fadeUp 1.3s ease .8s forwards;
+  }
+  .portada-title em { font-style: italic; color: var(--gold); }
+
+  .portada-sub {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: clamp(17px,3.2vw,24px); color: var(--text-light);
+    margin-bottom: 16px; opacity: 0; animation: fadeUp 1.3s ease 1.05s forwards;
+  }
+  .portada-date {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); font-weight: 200;
+    opacity: 0; animation: fadeUp 1.3s ease 1.3s forwards; margin-bottom: 48px;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 1.2s ease 2s forwards;
+  }
+  .scroll-hint span { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-light); }
+  .scroll-line { width: 1px; height: 38px; background: linear-gradient(to bottom, var(--gold), transparent); animation: linePulse 2s ease-in-out infinite; }
+
+  /* ══ SEC BASE ══ */
+  .sec-wrap { position: relative; z-index: 1; padding: clamp(64px,10vw,110px) clamp(20px,8vw,120px); }
+  .sec-inner { max-width: 860px; margin: 0 auto; }
+
+  .eyebrow {
+    display: block; font-weight: 200; font-size: 10px;
+    letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+  }
+  .sec-title {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(30px,5.5vw,52px); line-height: 1.1; color: var(--wine); margin-bottom: 28px;
+  }
+  .sec-title em { font-style: italic; color: var(--gold); }
+  .divider-line {
+    width: 56px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto 36px;
+  }
+
+  /* ══ ESENCIA ══ */
+  #esencia { background: linear-gradient(180deg, var(--cream) 0%, #fff5f8 100%); }
+
+  .carta-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px,2.6vw,22px); font-weight: 400; line-height: 2;
+    color: var(--text); text-align: center; margin-bottom: 52px;
+  }
+  .carta-intro em { font-style: italic; color: var(--wine-soft); }
+  .carta-intro strong { font-weight: 500; color: var(--wine); }
+
+  .grid-label {
+    text-align: center; font-size: 10px; font-weight: 200;
+    letter-spacing: 5px; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 24px; display: block;
+  }
+
+  .ing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%,185px), 1fr));
+    gap: 16px;
+  }
+  .ing-card {
+    background: rgba(255,255,255,.75); border: 1px solid rgba(197,151,90,.18);
+    border-radius: 18px; padding: 26px 18px; text-align: center;
+    backdrop-filter: blur(6px);
+    transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, border-color .4s ease;
+    position: relative; overflow: hidden;
+  }
+  .ing-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+    opacity: 0; transition: opacity .4s ease;
+  }
+  .ing-card:hover { transform: translateY(-7px); box-shadow: 0 22px 52px rgba(139,58,82,.1); border-color: rgba(197,151,90,.38); }
+  .ing-card:hover::after { opacity: 1; }
+
+  .ing-emoji { font-size: 30px; display: block; margin-bottom: 10px; animation: gentleFloat 4s ease-in-out infinite; }
+  .ing-card:nth-child(2) .ing-emoji { animation-delay: .6s; }
+  .ing-card:nth-child(3) .ing-emoji { animation-delay: 1.2s; }
+  .ing-card:nth-child(4) .ing-emoji { animation-delay: 1.8s; }
+  .ing-card:nth-child(5) .ing-emoji { animation-delay: 2.4s; }
+  .ing-card:nth-child(6) .ing-emoji { animation-delay: 3s; }
+
+  .ing-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500;
+    color: var(--wine); display: block; margin-bottom: 7px;
+  }
+  .ing-desc { font-size: 12.5px; font-weight: 300; color: var(--text-light); line-height: 1.65; }
+
+  /* ══ BANNER DÍA MADRE ══ */
+  #diamadre {
+    background: linear-gradient(145deg, var(--wine-deep) 0%, #7a2545 60%, #5c1e35 100%);
+    padding: clamp(56px,9vw,100px) clamp(20px,8vw,120px);
+    text-align: center; position: relative; z-index: 1; overflow: hidden;
+  }
+  #diamadre::before {
+    content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 350px;
+    background: radial-gradient(ellipse, rgba(232,201,138,.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  #diamadre::after {
+    content: '✦  ✦  ✦';
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    font-size: 10px; letter-spacing: 10px; color: rgba(232,201,138,.3);
+  }
+  .dm-inner { max-width: 620px; margin: 0 auto; position: relative; z-index: 1; }
+  .dm-badge {
+    display: inline-block; border: 1px solid rgba(232,201,138,.35);
+    border-radius: 40px; padding: 6px 20px; margin-bottom: 28px;
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold-light); font-weight: 200;
+  }
+  .dm-title {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(34px,6.5vw,60px); color: #fff; line-height: 1.08; margin-bottom: 24px;
+  }
+  .dm-title em { font-style: italic; color: var(--gold-light); }
+  .dm-quote {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: clamp(16px,2.6vw,20px); color: rgba(255,255,255,.75);
+    line-height: 1.95; max-width: 500px; margin: 0 auto;
+  }
+
+  /* ══ PUENTE ══ */
+  #puente { background: linear-gradient(180deg, #f4f0fa 0%, var(--lavender) 50%, #f4f0fa 100%); }
+  #puente .sec-inner { text-align: center; }
+
+  .puente-box {
+    border: 1px dashed rgba(139,58,82,.2); border-radius: 28px;
+    padding: clamp(32px,5vw,60px);
+    background: rgba(255,255,255,.55); backdrop-filter: blur(14px);
+    position: relative;
+  }
+  .puente-box::before { content: '✿'; position: absolute; top: 16px; left: 20px; color: var(--gold); opacity: .4; font-size: 16px; }
+  .puente-box::after  { content: '✿'; position: absolute; bottom: 16px; right: 20px; color: var(--gold); opacity: .4; font-size: 16px; }
+
+  .puente-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px,2.5vw,20px); font-weight: 400; font-style: italic;
+    line-height: 1.95; color: var(--text); margin: 20px 0;
+  }
+  .puente-text em { color: var(--wine-soft); font-weight: 500; }
+
+  .xray-frame {
+    position: relative; display: inline-block;
+    margin: 32px auto; max-width: min(100%,340px);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 16px 60px rgba(139,58,82,.15);
+  }
+  .xray-glow {
+    position: absolute; inset: -1px; border-radius: 15px;
+    box-shadow: 0 0 0 1px rgba(197,151,90,.3);
+    animation: xrayGlow 3.5s ease-in-out infinite; z-index: 2; pointer-events: none;
+  }
+  .xray-placeholder {
+    width: min(100%,340px); aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #1a1a2e, #2d1f3d);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border-radius: 14px; position: relative; overflow: hidden;
+  }
+  .xray-placeholder::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 38%, rgba(255,255,255,.05) 0%, transparent 70%);
+  }
+  .xray-icon-big { font-size: 52px; opacity: .65; margin-bottom: 14px; animation: glowPulse 3s ease-in-out infinite; }
+  .xray-hint { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: rgba(255,255,255,.45); padding: 0 24px; text-align: center; }
+
+  .xray-img { width: min(100%,340px); border-radius: 14px; display: block; filter: sepia(12%) brightness(.95); transition: filter .5s ease; }
+  .xray-img:hover { filter: sepia(0%) brightness(1.02); }
+
+  .xray-upload {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.38); display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity .3s ease; cursor: pointer; border-radius: 14px; z-index: 3;
+  }
+  .xray-frame:hover .xray-upload { opacity: 1; }
+  .xray-upload span { color: #fff; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; }
+  #xray-input { display: none; }
+
+  .dots-deco { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 12px; opacity: .5; color: var(--gold); letter-spacing: 4px; }
+
+  /* ══ ESPERANZA ══ */
+  #esperanza { background: linear-gradient(180deg, #fff5f7 0%, var(--cream) 100%); }
+  #esperanza .sec-inner { text-align: center; }
+
+  .semillas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%,210px),1fr));
+    gap: 18px; margin: 36px 0;
+  }
+  .semilla {
+    background: rgba(255,255,255,.8); border: 1px solid rgba(197,151,90,.15);
+    border-radius: 20px; padding: 30px 20px;
+    transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease;
+    position: relative; overflow: hidden;
+  }
+  .semilla::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(to right, var(--wine-soft), var(--gold));
+    transform: scaleX(0); transform-origin: left; transition: transform .5s ease;
+  }
+  .semilla:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(139,58,82,.09); }
+  .semilla:hover::before { transform: scaleX(1); }
+
+  .semilla-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: rgba(197,151,90,.2); line-height: 1; display: block; margin-bottom: 6px; }
+  .semilla-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+  .semilla-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--wine); display: block; margin-bottom: 7px; }
+  .semilla-desc { font-size: 12.5px; font-weight: 300; color: var(--text-light); line-height: 1.7; }
+
+  .promesa-box {
+    background: linear-gradient(135deg, rgba(139,58,82,.05), rgba(197,151,90,.05));
+    border: 1px solid rgba(197,151,90,.22); border-radius: 22px;
+    padding: clamp(28px,5vw,52px); margin-top: 36px; position: relative;
+  }
+  .promesa-box::before {
+    content: '\201C'; font-family: 'Cormorant Garamond', serif;
+    font-size: 120px; line-height: 1; color: var(--gold); opacity: .1;
+    position: absolute; top: -10px; left: 20px;
+  }
+  .promesa-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px,2.8vw,22px); font-weight: 400; font-style: italic;
+    line-height: 1.95; color: var(--text); position: relative; z-index: 1;
+  }
+  .promesa-text em { color: var(--wine-soft); font-style: normal; font-weight: 500; }
+
+  /* ══ CIERRE ══ */
+  #cierre {
+    padding: clamp(80px,12vw,140px) clamp(20px,8vw,120px);
+    background: linear-gradient(160deg, #fdf8ee 0%, #fff3f6 100%);
+    text-align: center; position: relative; z-index: 1; overflow: hidden;
+  }
+  #cierre::before {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(197,151,90,.07) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  #cierre .sec-inner { position: relative; z-index: 1; max-width: 600px; }
+
+  .cierre-heart { width: 52px; margin: 0 auto 28px; }
+  .cierre-heart path { fill: var(--wine-soft); }
+
+  .cierre-title {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(34px,6.5vw,60px); color: var(--wine); line-height: 1.08; margin-bottom: 28px;
+  }
+  .cierre-title em { font-style: italic; color: var(--gold); }
+
+  .cierre-msg {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400;
+    font-size: clamp(17px,2.8vw,22px); color: var(--text-light); line-height: 1.95; margin-bottom: 40px;
+  }
+
+  .firma-sep { display: flex; align-items: center; gap: 14px; justify-content: center; margin-bottom: 20px; opacity: .5; }
+  .firma-sep::before, .firma-sep::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+  .firma-sep::after { background: linear-gradient(to left, transparent, var(--gold)); }
+  .firma-sep span { font-size: 14px; color: var(--gold); }
+
+  .firma { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 200; }
+
+  /* ══ KEYFRAMES ══ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    14%      { transform: scale(1.14); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.09); }
+    70%      { transform: scale(1); }
+  }
+  @keyframes linePulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+  @keyframes gentleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes xrayGlow {
+    0%,100% { box-shadow: 0 0 0 1px rgba(197,151,90,.25), 0 0 18px rgba(197,151,90,.0); }
+    50%      { box-shadow: 0 0 0 1px rgba(197,151,90,.5), 0 0 28px rgba(197,151,90,.1); }
+  }
+  @keyframes glowPulse { 0%,100% { opacity: .5; filter: brightness(1); } 50% { opacity: .8; filter: brightness(1.4); } }
+
+  @media (max-width: 600px) {
+    .ing-grid { grid-template-columns: 1fr 1fr; }
+    .semillas-grid { grid-template-columns: 1fr; }
+    .corner { width: 36px; height: 36px; }
+  }
+</style>
 </head>
-
 <body>
 
-    <!-- ===== FLOATING HEARTS BG ===== -->
-    <div class="hearts-bg" id="heartsBg">
-        <div class="fh"
-            style="left: 37.6867%; font-size: 25.0833px; animation-duration: 18.9824s; animation-delay: 2.18517s;">❤
-        </div>
-        <div class="fh"
-            style="left: 58.702%; font-size: 25.7746px; animation-duration: 16.4996s; animation-delay: 9.60123s;">💕
-        </div>
-        <div class="fh"
-            style="left: 87.5433%; font-size: 22.9729px; animation-duration: 11.3161s; animation-delay: 6.8282s;">🌸
-        </div>
-        <div class="fh"
-            style="left: 24.2691%; font-size: 15.7822px; animation-duration: 16.8234s; animation-delay: 9.80576s;">💖
-        </div>
-        <div class="fh"
-            style="left: 25.2362%; font-size: 24.0857px; animation-duration: 19.4663s; animation-delay: 3.19578s;">✿
-        </div>
-        <div class="fh"
-            style="left: 99.8819%; font-size: 27.4482px; animation-duration: 11.6482s; animation-delay: 5.58519s;">❤
-        </div>
-        <div class="fh"
-            style="left: 79.2009%; font-size: 30.9758px; animation-duration: 12.7181s; animation-delay: 2.83804s;">💕
-        </div>
-        <div class="fh"
-            style="left: 93.9526%; font-size: 23.0566px; animation-duration: 15.5599s; animation-delay: 7.61241s;">🌸
-        </div>
-        <div class="fh"
-            style="left: 61.0775%; font-size: 20.4481px; animation-duration: 13.0793s; animation-delay: 0.646666s;">💖
-        </div>
-        <div class="fh"
-            style="left: 70.6147%; font-size: 14.4128px; animation-duration: 9.19506s; animation-delay: 3.62829s;">✿
-        </div>
-        <div class="fh"
-            style="left: 54.3731%; font-size: 14.6789px; animation-duration: 16.8465s; animation-delay: 3.93756s;">❤
-        </div>
-        <div class="fh"
-            style="left: 19.6167%; font-size: 18.9235px; animation-duration: 9.66096s; animation-delay: 9.35198s;">💕
-        </div>
-        <div class="fh"
-            style="left: 70.6988%; font-size: 16.0029px; animation-duration: 11.3786s; animation-delay: 1.85381s;">🌸
-        </div>
-        <div class="fh"
-            style="left: 77.9846%; font-size: 20.6272px; animation-duration: 17.1417s; animation-delay: 0.412808s;">💖
-        </div>
-        <div class="fh"
-            style="left: 35.2665%; font-size: 14.0464px; animation-duration: 11.5622s; animation-delay: 7.95s;">✿</div>
-        <div class="fh"
-            style="left: 40.0437%; font-size: 23.0096px; animation-duration: 12.3666s; animation-delay: 7.44926s;">❤
-        </div>
-        <div class="fh"
-            style="left: 54.3458%; font-size: 14.6112px; animation-duration: 12.8414s; animation-delay: 3.39663s;">💕
-        </div>
-        <div class="fh"
-            style="left: 62.8592%; font-size: 16.0391px; animation-duration: 9.10752s; animation-delay: 6.60546s;">🌸
-        </div>
-    </div>
+<canvas id="bg-canvas"></canvas>
+<div id="petals"></div>
 
-    <!-- ===== HERO ===== -->
-    <div class="hero">
-        <div class="hero-blob hero-blob-1"></div>
-        <div class="hero-blob hero-blob-2"></div>
+<div style="position:relative; z-index:1;">
 
-        <p class="hero-tag">✦ Con todo el amor del mundo ✦</p>
+<!-- ════ PORTADA ════ -->
+<div id="portada">
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
 
-        <div class="hero-main-row">
-            <div class="char-wrap">
-                <svg id="heroSvg" viewBox="0 0 128 205" xmlns="http://www.w3.org/2000/svg"
-                    style="width:100%;height:auto">
-                    <rect x="36" y="108" width="54" height="66" rx="20" fill="white" stroke="#222" stroke-width="2.5">
-                    </rect>
-                    <circle cx="63" cy="77" r="38" fill="white" stroke="#222" stroke-width="2.5"></circle>
-                    <ellipse cx="51" cy="72" rx="4.5" ry="5" fill="#222"></ellipse>
-                    <ellipse cx="75" cy="72" rx="4.5" ry="5" fill="#222"></ellipse>
-                    <circle cx="53" cy="70" r="1.8" fill="white"></circle>
-                    <circle cx="77" cy="70" r="1.8" fill="white"></circle>
-                    <path d="M50 87 Q63 98 76 87" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round">
-                    </path>
-                    <ellipse cx="40" cy="82" rx="10" ry="6.5" fill="#ffb3c6" opacity="0.5"></ellipse>
-                    <ellipse cx="86" cy="82" rx="10" ry="6.5" fill="#ffb3c6" opacity="0.5"></ellipse>
-                    <path d="M36 122 Q18 144 15 158" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round">
-                    </path>
-                    <path d="M90 118 Q108 101 120 89" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round">
-                    </path>
-                    <circle cx="122" cy="86" r="5.5" fill="white" stroke="#222" stroke-width="2"></circle>
-                    <rect x="42" y="167" width="19" height="33" rx="9.5" fill="white" stroke="#222" stroke-width="2.5">
-                    </rect>
-                    <rect x="65" y="167" width="19" height="33" rx="9.5" fill="white" stroke="#222" stroke-width="2.5">
-                    </rect>
-                </svg>
-                <div class="biu-area">
-                    <div class="biu-h fly" id="bh">❤</div>
-                    <div class="biu-txt show" id="bt">biu</div>
-                </div>
-            </div>
-            <div class="hgrid" id="hgrid" style="grid-template-columns: repeat(16, 23px); gap: clamp(1px, 0.4vw, 3px);">
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc"></div>
-                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc"></div>
-                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc pop">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div style="width: 23px; height: 23px; font-size: 17.25px;" class="hc pop">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc pop" style="width: 23px; height: 23px; font-size: 17.25px;">❤</div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-                <div class="hc" style="width: 23px; height: 23px; font-size: 17.25px;"></div>
-            </div>
-        </div>
+  <p class="portada-eyebrow">11 de mayo · Día de las Madres</p>
 
-        <h1 class="hero-title show" id="heroTitle">La Mejor Mamá del Mundo</h1>
-        <p class="hero-subtitle show" id="heroSub">Este día es completamente tuyo, mamá 🌸</p>
-        <div class="scroll-hint show" id="scrollHint">↓ &nbsp; sigue leyendo &nbsp; ↓</div>
-        <button class="replay-btn show" id="rbtn" onclick="startHeart()">↺ Volver a ver</button>
-    </div>
+  <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+    <g class="heart-pulse">
+      <path d="M50 82C50 82 8 52 8 28C8 14 19 5 32 5C40 5 47 10 50 15C53 10 60 5 68 5C81 5 92 14 92 28C92 52 50 82 50 82Z"/>
+    </g>
+  </svg>
 
-    <div class="divider reveal">❤ ❤ ❤</div>
+  <h1 class="portada-title">Para mi<br><em>fea</em></h1>
+  <p class="portada-sub">"la que más quiero en el mundo"</p>
+  <p class="portada-date">✦ con todo mi amor ✦</p>
 
-    <!-- ===== CARTA ===== -->
-<section class="letter-section reveal">
-    <span class="section-label">— de mi corazón para el tuyo —</span>
-    <h2 class="section-title">Lo que llevo <em>dentro</em></h2>
-    <div class="letter-card">
-        <span class="letter-date">Día de la Madre, 2026</span>
-        <div class="letter-body">
-            <p>Ama,</p>
-            <p>A veces doy por hecho que lo sabes, pero hoy quería sentarme a escribirlo. Gracias por estar ahí siempre, incluso cuando no te lo pido. Gracias por esas madrugadas en las que te despertaste antes que todos, por cargar con preocupaciones que nunca nos contaste para que nosotros estuviéramos tranquilos, y por esos abrazos que me reinician la vida cuando las cosas se ponen feas.</p>
-            <p>Contigo aprendí que amar es una acción: es el plato de comida caliente esperándome, es el "avísame cuando llegues" que nunca falta, y es esa forma tuya de leerme la cara con solo una mirada. Me enseñaste que no hace falta gritar para ser fuerte, y que la mayor riqueza es tener a la familia unida.</p>
-            <p>Sé que a veces no soy de muchas palabras, pero quiero que sepas que te admiro más de lo que imaginas. Eres mi ejemplo de lucha y de bondad. No existe página web ni regalo en el mundo que alcance para agradecerte todo lo que has hecho por mí, pero espero que este detalle te haga sentir un poquito de todo el amor que te tengo.</p>
-            <p>Hoy y siempre, estoy orgulloso de ser tu hijo.</p>
-        </div>
-        <div class="letter-signature">Te amo mucho, Ama.<br>Tu hijo ❤</div>
-        <div class="letter-hearts">❤ ❤ ❤</div>
-    </div>
-</section>
-
-    <!-- ===== QUALITIES ===== -->
-    <section class="reveal">
-    <span class="section-label">— el corazón de nuestro hogar —</span>
-    <h2 class="section-title">Lo que te hace <em>extraordinaria</em></h2>
-    <div class="qualities-grid">
-        <div class="q-card">
-            <span class="q-icon">✨</span>
-            <div class="q-title">Magia incondicional</div>
-            <p class="q-desc">Tienes el don de transformar un día gris en uno brillante solo con tu presencia. Tu amor es la magia que hace que todo sea posible.</p>
-        </div>
-        <div class="q-card">
-            <span class="q-icon">💖</span>
-            <div class="q-title">Amor sin límites</div>
-            <p class="q-desc">Tu corazón no conoce fronteras. Gracias por quererme incluso en mis días más difíciles y por ser mi apoyo más grande siempre.</p>
-        </div>
-        <div class="q-card">
-            <span class="q-icon">🫂</span>
-            <div class="q-title">Refugio de paz</div>
-            <p class="q-desc">Tus abrazos tienen el poder de curar cualquier herida. Eres el lugar seguro al que siempre quiero volver para sentirme en casa.</p>
-        </div>
-<div class="q-card">
-    <span class="q-icon">👁️</span>
-    <div class="q-title">Instinto protector</div>
-    <p class="q-desc">Parece que puedes leerme el alma. Siempre sabes lo que me pasa antes de que diga una palabra, cuidándome incluso cuando no te lo pido.</p>
+  <div class="scroll-hint">
+    <span>para ti</span>
+    <div class="scroll-line"></div>
+  </div>
 </div>
-        <div class="q-card">
-            <span class="q-icon">🍲</span>
-            <div class="q-title">Sabores de hogar</div>
-            <p class="q-desc">Tu cocina es el ingrediente que une a la familia. Cada plato es un pedacito de tu alma que nos alimenta el cuerpo y también el espíritu.</p>
-        </div>
-        <div class="q-card">
-            <span class="q-icon">🛡️</span>
-            <div class="q-title">Fortaleza infinita</div>
-            <p class="q-desc">Eres la mujer más fuerte que conozco. Gracias por luchar todas las batallas por nosotros, siempre con una sonrisa y una fe inquebrantable.</p>
-        </div>
-    </div>
-</section>
 
-    <!-- ===== BIG QUOTE ===== -->
-    <div class="quote-wrap reveal">
-        <p class="big-quote">Una madre es quien puede tomar el lugar de todos los demás, pero cuyo lugar nadie más puede
-            ocupar.</p>
-        <p class="quote-author">— Gaspard Mermillod</p>
+<!-- ════ ESENCIA ════ -->
+<div id="esencia" class="sec-wrap">
+  <div class="sec-inner">
+    <div class="reveal" style="text-align:center; margin-bottom:44px;">
+      <span class="eyebrow">· lo que veo en ti cada día ·</span>
+      <h2 class="sec-title">Lo que eres,<br><em>aunque no te lo creas</em></h2>
+      <div class="divider-line"></div>
+      <p class="carta-intro">
+        Hay cosas que quiero que sepas.<br>
+        Cosas que noto y que a veces se me olvida decirte en voz alta.<br>
+        <em>Hoy no se me olvida.</em>
+        <br><br>
+        Eres la persona que más admiro, que más quiero y que más me mueve el piso.<br>
+        <strong>Y esto es solo una parte pequeña de todo lo que veo en ti.</strong>
+      </p>
     </div>
 
-    <!-- ===== MEMORIES ===== -->
-    <div class="memories-section reveal">
-        <div style="max-width:1100px;margin:0 auto">
-            <span class="section-label">— ingredientes de una mujer única —</span>
-            <h2 class="section-title">Tu receta para <em>hacernos felices</em></h2>
-            <div class="memories-grid">
-                <div class="mem-card">
-                    <span class="mem-num">🍯</span>
-                    <p class="mem-text"><strong>3 tazas de dulzura:</strong> Esa que usas para calmarnos cuando el mundo parece difícil y para recordarnos que todo tiene solución.</p>
-                </div>
-                <div class="mem-card">
-                    <span class="mem-num">🧂</span>
-                    <p class="mem-text"><strong>Una pizca de firmeza:</strong> El toque justo de carácter que nos enseñó a distinguir el bien del mal y a caminar con rectitud.</p>
-                </div>
-                <div class="mem-card">
-                    <span class="mem-num">🔥</span>
-                    <p class="mem-text"><strong>Calor de hogar infinito:</strong> Ese fuego que mantienes encendido con tu esfuerzo diario para que nunca sintamos frío ni soledad.</p>
-                </div>
-                <div class="mem-card">
-                    <span class="mem-num">🌿</span>
-                    <p class="mem-text"><strong>Esencia de paciencia:</strong> Un ingrediente que parece no agotarse nunca, incluso en mis días de más rebeldía o dudas.</p>
-                </div>
-                <div class="mem-card">
-                    <span class="mem-num">🥄</span>
-                    <p class="mem-text"><strong>Cucharadas de sacrificio:</strong> De ese que haces en silencio, dejando tus cosas de lado para que a nosotros nunca nos falte nada.</p>
-                </div>
-                <div class="mem-card">
-                    <span class="mem-num">❤️</span>
-                    <p class="mem-text"><strong>Amor como base de todo:</strong> Mezclado con fe y alegría, es lo que hace que nuestra familia sea el mejor lugar del mundo.</p>
-                </div>
-            </div>
-        </div>
+    <span class="grid-label reveal">· los ingredientes de mi fea ·</span>
+
+    <div class="ing-grid">
+      <div class="ing-card reveal" style="transition-delay:.08s">
+        <span class="ing-emoji">🍯</span>
+        <span class="ing-name">Dulzura que desarma</span>
+        <p class="ing-desc">Tienes una forma de hablar que me calma cuando más lo necesito. No sé cómo lo haces, pero funciona siempre.</p>
+      </div>
+      <div class="ing-card reveal" style="transition-delay:.16s">
+        <span class="ing-emoji">🛡️</span>
+        <span class="ing-name">Fuerza de las calladas</span>
+        <p class="ing-desc">No presumes lo que cargas. Simplemente lo cargas y sigues. Esa fortaleza tuya me inspira más de lo que imaginas.</p>
+      </div>
+      <div class="ing-card reveal" style="transition-delay:.24s">
+        <span class="ing-emoji">🌟</span>
+        <span class="ing-name">Fe que no se rinde</span>
+        <p class="ing-desc">Incluso cuando el camino se ha puesto oscuro, tú has creído. Eso no es cualquier cosa. Eso es algo muy tuyo.</p>
+      </div>
+      <div class="ing-card reveal" style="transition-delay:.32s">
+        <span class="ing-emoji">🌸</span>
+        <span class="ing-name">Amor sin condiciones</span>
+        <p class="ing-desc">Das amor antes de que te lo pidan. Con una generosidad que nace sin esfuerzo, desde adentro.</p>
+      </div>
+      <div class="ing-card reveal" style="transition-delay:.40s">
+        <span class="ing-emoji">🤝</span>
+        <span class="ing-name">Mi mejor compañera</span>
+        <p class="ing-desc">Eres mi socia, mi amiga, mi favorita. No me imagino ninguna versión de mi vida sin ti en ella.</p>
+      </div>
+      <div class="ing-card reveal" style="transition-delay:.48s">
+        <span class="ing-emoji">✨</span>
+        <span class="ing-name">Esa cosa que solo tú tienes</span>
+        <p class="ing-desc">No sé exactamente cómo llamarle. Solo sé que entras a un lugar y algo cambia. Siempre ha sido así.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ BANNER DÍA MADRE ════ -->
+<div id="diamadre">
+  <div class="dm-inner reveal">
+    <span class="dm-badge">✦ 11 de mayo ✦</span>
+    <h2 class="dm-title">Feliz Día,<br><em>mi fea hermosa</em></h2>
+    <p class="dm-quote">
+      Eres madre con todo el corazón, con una valentía que pocas personas entienden, y con un amor que ya existe y que es real y que es tuyo. Hoy te celebro a ti, a todo lo que eres y a todo lo que llevas dentro.
+    </p>
+  </div>
+</div>
+
+<!-- ════ PUENTE DE LUZ ════ -->
+<div id="puente" class="sec-wrap">
+  <div class="sec-inner">
+    <div class="reveal" style="text-align:center; margin-bottom:36px;">
+      <span class="eyebrow">· siempre con nosotros ·</span>
+      <h2 class="sec-title">Nuestro primer milagro:<br><em>el amor que no se va</em></h2>
+      <div class="divider-line"></div>
     </div>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer-section">
-        <div class="footer-hearts">❤ ❤ ❤ ❤ ❤</div>
-        <p class="footer-msg">Mamá, te amo más de lo que las palabras pueden decir.</p>
-        <p class="footer-sub">Hecho con todo el amor del mundo, solo para ti 🌸</p>
-    </footer>
+    <div class="puente-box reveal-slow">
+      <p class="puente-text">
+        Hay amores que no necesitan tiempo para ser eternos.<br>
+        Existió. Nos amó. Y dejó una huella que <em>nada ni nadie</em> va a borrar.
+      </p>
 
-    <!-- ===== SCRIPTS ===== -->
-    <script>
-        /* ----- FLOATING HEARTS ----- */
-        const bg = document.getElementById('heartsBg');
-        const emojis = ['❤', '💕', '🌸', '💖', '✿'];
-        for (let i = 0; i < 18; i++) {
-            const h = document.createElement('div');
-            h.className = 'fh';
-            h.textContent = emojis[i % emojis.length];
-            h.style.left = Math.random() * 100 + '%';
-            h.style.fontSize = (14 + Math.random() * 18) + 'px';
-            h.style.animationDuration = (8 + Math.random() * 14) + 's';
-            h.style.animationDelay = (Math.random() * 10) + 's';
-            bg.appendChild(h);
-        }
+      <div class="xray-frame reveal-slow" style="display:block;">
+        <div class="xray-glow"></div>
+        <div class="xray-placeholder" id="xray-placeholder">
+          <span class="xray-icon-big">🌙</span>
+          <span class="xray-hint">aquí va la imagen de nuestro primer milagro</span>
+        </div>
+        <img id="xray-img" class="xray-img" src="" alt="Nuestro primer milagro" style="display:none;">
+        <div class="xray-upload" onclick="document.getElementById('xray-input').click()">
+          <span>📎 subir imagen</span>
+        </div>
+        <input type="file" id="xray-input" accept="image/*" onchange="loadXray(event)">
+      </div>
 
-        /* ----- HEART ANIMATION ----- */
-        const COLS = 16, ROWS = 14, XS = 1.4, YS = 1.22, EPS = 0.04;
+      <div class="dots-deco">✦ &nbsp; 🌸 &nbsp; ✦ &nbsp; 🌸 &nbsp; ✦</div>
 
-        function makeHeart() {
-            const p = [];
-            for (let r = 0; r < ROWS; r++) {
-                const row = [];
-                for (let c = 0; c < COLS; c++) {
-                    const x = (c - (COLS - 1) / 2) / ((COLS - 1) / 2) * XS;
-                    const y = -((r - (ROWS - 1) / 2) / ((ROWS - 1) / 2) * YS);
-                    const v = Math.pow(x * x + y * y - 1, 3) - x * x * y * y * y;
-                    row.push(v <= EPS ? 1 : 0);
-                }
-                p.push(row);
-            }
-            return p;
-        }
+      <p class="puente-text">
+        Esta imagen me recuerda que somos <em>tres</em> en este camino.<br>
+        Que su luz nos acompaña, y que su recuerdo lo llevamos con paz, con amor<br>
+        y con mucho orgullo de que haya sido nuestro.
+      </p>
+    </div>
+  </div>
+</div>
 
-        let T = [];
-        function clr() { T.forEach(clearTimeout); T = []; }
+<!-- ════ ESPERANZA ════ -->
+<div id="esperanza" class="sec-wrap">
+  <div class="sec-inner">
+    <div class="reveal" style="text-align:center; margin-bottom:36px;">
+      <span class="eyebrow">· hoy, aquí, juntos ·</span>
+      <h2 class="sec-title">Caminando despacio,<br><em>pero contigo</em></h2>
+      <div class="divider-line"></div>
+    </div>
 
-        function biu() {
-            const h = document.getElementById('bh'), l = document.getElementById('bt');
-            h.className = 'biu-h'; l.className = 'biu-txt';
-            void h.offsetWidth;
-            h.className = 'biu-h fly'; l.className = 'biu-txt show';
-        }
+    <div class="semillas-grid">
+      <div class="semilla reveal" style="transition-delay:.08s">
+        <span class="semilla-num">01</span>
+        <span class="semilla-icon">🌱</span>
+        <span class="semilla-name">Un día a la vez</span>
+        <p class="semilla-desc">No te pido que mires lejos. Solo que estés hoy, y que sepas que hoy también vale.</p>
+      </div>
+      <div class="semilla reveal" style="transition-delay:.18s">
+        <span class="semilla-num">02</span>
+        <span class="semilla-icon">🫶</span>
+        <span class="semilla-name">Siempre de tu lado</span>
+        <p class="semilla-desc">No hay nada en este proceso en el que vayas a estar sola. Eso no va a cambiar.</p>
+      </div>
+      <div class="semilla reveal" style="transition-delay:.28s">
+        <span class="semilla-num">03</span>
+        <span class="semilla-icon">☀️</span>
+        <span class="semilla-name">Tú primero</span>
+        <p class="semilla-desc">Tu bienestar, tu paz, tu cuerpo. Eso es lo más importante. Lo demás lo resolvemos juntos.</p>
+      </div>
+    </div>
 
-        function getCellSize() {
-            const vw = window.innerWidth;
-            if (vw < 400) return 13;
-            if (vw < 600) return 16;
-            if (vw < 900) return 20;
-            return 23;
-        }
+    <div class="promesa-box reveal">
+      <p class="promesa-text">
+        "Hoy camino contigo con cuidado, pero camino contigo. Gracias por tu valentía, por cuidarte y por seguir adelante con tanto amor. Mi única promesa es estar aquí, en cada paso, sosteniéndote, <em>queriéndote</em>, sin importar lo que venga. No necesito que seas perfecta. Solo necesito que estés tú."
+      </p>
+    </div>
+  </div>
+</div>
 
-        function startHeart() {
-            clr();
-            const grid = document.getElementById('hgrid');
-            grid.innerHTML = '';
-            document.getElementById('heroTitle').className = 'hero-title';
-            document.getElementById('heroSub').className = 'hero-subtitle';
-            document.getElementById('scrollHint').className = 'scroll-hint';
-            document.getElementById('rbtn').className = 'replay-btn';
-            document.getElementById('bh').className = 'biu-h';
-            document.getElementById('bt').className = 'biu-txt';
+<!-- ════ CIERRE ════ -->
+<div id="cierre">
+  <div class="sec-inner">
+    <svg class="cierre-heart reveal" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 82C50 82 8 52 8 28C8 14 19 5 32 5C40 5 47 10 50 15C53 10 60 5 68 5C81 5 92 14 92 28C92 52 50 82 50 82Z"/>
+    </svg>
 
-            const CS = getCellSize();
-            const P = makeHeart();
-            grid.style.gridTemplateColumns = 'repeat(' + COLS + ',' + CS + 'px)';
-            grid.style.gap = CS <= 13 ? '1px' : 'clamp(1px,0.4vw,3px)';
+    <h2 class="cierre-title reveal" style="transition-delay:.1s">
+      Gracias por ser<br>mi <em>fea favorita</em>
+    </h2>
 
-            const cells = [];
-            P.forEach((row, r) => row.forEach((v, c) => {
-                const d = document.createElement('div');
-                d.className = 'hc';
-                d.style.width = CS + 'px'; d.style.height = CS + 'px';
-                d.style.fontSize = (CS * .75) + 'px';
-                // Ejemplo: Borrar el corazón que está en la fila 5, columna 8
-                if (v && !(r === 8 && c === 2) && !(r === 8 && c === 13)) {
-                    d.textContent = '❤'; // <--- ¡No olvides esta línea!
-                    d._r = r;
-                    d._c = c;
-                    cells.push(d);
-                }
-                grid.appendChild(d);
+    <p class="cierre-msg reveal" style="transition-delay:.2s">
+      Te quiero con todo.<br>
+      Con lo bonito, con lo difícil, con lo que viene.<br>
+      Contigo siempre, en todo.
+    </p>
 
-            }));
+    <div class="firma-sep reveal" style="transition-delay:.3s"><span>❤</span></div>
+    <p class="firma reveal" style="transition-delay:.35s">Tu compañero, hoy y siempre</p>
+  </div>
+</div>
 
-            cells.sort((a, b) => a._c - b._c || a._r - b._r);
+</div>
 
-            const S = 350, ST = 50;
-            cells.forEach((c, i) => {
-                T.push(setTimeout(() => c.classList.add('pop'), S + i * ST));
-            });
-            [0, 900, 2000, 3300, 4500].forEach(o => {
-                T.push(setTimeout(biu, o + 100));
-            });
-            const end = S + cells.length * ST + 500;
-            T.push(setTimeout(() => {
-                document.getElementById('heroTitle').className = 'hero-title show';
-                document.getElementById('heroSub').className = 'hero-subtitle show';
-                document.getElementById('scrollHint').className = 'scroll-hint show';
-            }, end));
-            T.push(setTimeout(() => {
-                document.getElementById('rbtn').className = 'replay-btn show';
-            }, end + 900));
-        }
-        startHeart();
+<script>
+/* BG CANVAS */
+(function(){
+  const c=document.getElementById('bg-canvas'),ctx=c.getContext('2d');
+  let W,H;
+  const syms=['❤','✨','🌸'];
+  const pts=[];
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+  resize();addEventListener('resize',resize);
+  for(let i=0;i<10;i++) pts.push({
+    x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    s:syms[Math.floor(Math.random()*3)],
+    sz:11+Math.random()*12,
+    vx:(Math.random()-.5)*.3,vy:-(.1+Math.random()*.22),
+    op:.06+Math.random()*.08,
+    rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.007
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
+      if(p.y<-30)p.y=H+20;
+      if(p.x<-30)p.x=W+20;
+      if(p.x>W+30)p.x=-20;
+      ctx.save();ctx.globalAlpha=p.op;
+      ctx.font=`${p.sz}px serif`;
+      ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+      ctx.fillText(p.s,-p.sz/2,p.sz/2);
+      ctx.restore();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-        /* ----- SCROLL REVEAL ----- */
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-            });
-        }, { threshold: .12 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+/* PÉTALOS — solo 7 */
+(function(){
+  const c=document.getElementById('petals');
+  const em=['🌸','🌺'];
+  for(let i=0;i<7;i++){
+    const el=document.createElement('span');
+    el.className='petal';
+    el.textContent=em[Math.floor(Math.random()*2)];
+    const sz=10+Math.random()*12,dur=14+Math.random()*10,delay=Math.random()*14;
+    el.style.cssText=`left:${Math.random()*100}%;font-size:${sz}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
+    c.appendChild(el);
+  }
+})();
 
-        /* ----- RESIZE: restart heart if size changes significantly ----- */
-        let lastVW = window.innerWidth;
-        window.addEventListener('resize', () => {
-            if (Math.abs(window.innerWidth - lastVW) > 100) { lastVW = window.innerWidth; startHeart(); }
-        });
-    </script>
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-slow').forEach(el=>obs.observe(el));
 
-
+/* XRAY */
+function loadXray(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const ph=document.getElementById('xray-placeholder');
+    const img=document.getElementById('xray-img');
+    img.src=e.target.result;
+    ph.style.display='none';
+    img.style.display='block';
+    img.style.opacity='0';img.style.transition='opacity 2s ease';
+    setTimeout(()=>{img.style.opacity='1';},80);
+  };
+  reader.readAsDataURL(file);
+}
+</script>
 </body>
-
 </html>
